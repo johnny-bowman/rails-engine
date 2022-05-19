@@ -11,6 +11,16 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemSerializer.new(Item.create(item_params)), status: :created
   end
 
+  def update
+    item = Item.update(params[:id], item_params)
+
+    if item.save
+      render json: ItemSerializer.new(item)
+    else
+      render status: 404
+    end
+  end
+
   private
 
   def item_params
