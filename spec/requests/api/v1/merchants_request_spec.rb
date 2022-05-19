@@ -61,4 +61,15 @@ describe "Merchants API" do
       expect(item[:attributes][:unit_price]).to be_a(Float)
     end
   end
+
+  it "finds merchant based on search params" do
+    create_list(:merchant, 3)
+    merchant_name = Merchant.all.first.name
+
+    get "/api/v1/merchants/find?name=#{merchant_name.downcase}"
+
+    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response).to be_successful
+  end
 end

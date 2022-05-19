@@ -5,4 +5,8 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
+
+  def self.search_by_name(name)
+    find_by_sql("SELECT * FROM merchants WHERE LOWER(name) = '#{name.downcase}'")
+  end
 end
