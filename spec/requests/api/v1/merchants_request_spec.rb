@@ -68,8 +68,8 @@ describe "Merchants API" do
 
     get "/api/v1/merchants/find?name=#{merchant_name.downcase}"
 
-    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
-
+    merchant = JSON.parse(response.body, symbolize_names: true)
+    
     expect(response).to be_successful
   end
 

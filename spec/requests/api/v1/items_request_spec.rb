@@ -125,13 +125,15 @@ RSpec.describe "Items API" do
   end
 
   it "finds all items based on name search" do
-    create_list(:item, 5)
-    name = Item.first.name
-    Item.last.update(name: name)
+    item_1 = create(:item, name: 'My Couch', unit_price: '500')
+    item_2 = create(:item, name: 'BandAid fix ouch', unit_price: '2')
+    item_3 = create(:item, name: 'Turnips', unit_price: '10')
+    item_4 = create(:item, name: 'cheese puffs', unit_price: '300')
 
-    get "/api/v1/items/find_all?name=#{name}"
+    get "/api/v1/items/find_all?name=ouch"
 
     items = JSON.parse(response.body, symbolize_names: true)[:data]
+    # binding.pry
     # expect(items[:error]).to eq("Merchant not found")
   end
 end
