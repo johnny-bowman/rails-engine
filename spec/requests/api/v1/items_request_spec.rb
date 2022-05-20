@@ -123,4 +123,15 @@ RSpec.describe "Items API" do
     expect(merchant[:attributes]).to have_key(:name)
     expect(merchant[:attributes][:name]).to be_a(String)
   end
+
+  it "finds all items based on name search" do
+    create_list(:item, 5)
+    name = Item.first.name
+    Item.last.update(name: name)
+
+    get "/api/v1/items/find_all?name=#{name}"
+
+    items = JSON.parse(response.body, symbolize_names: true)[:data]
+    # expect(items[:error]).to eq("Merchant not found")
+  end
 end

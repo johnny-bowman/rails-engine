@@ -72,4 +72,11 @@ describe "Merchants API" do
 
     expect(response).to be_successful
   end
+
+  it "returns error object on search when no merchant matches" do
+    get "/api/v1/merchants/find?name=cheesepuffmcgooberstein"
+
+    error_response = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(error_response[:error]).to eq("Merchant not found")
+  end
 end
