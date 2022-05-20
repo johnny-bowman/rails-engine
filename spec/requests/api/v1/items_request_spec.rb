@@ -124,7 +124,7 @@ RSpec.describe "Items API" do
     expect(merchant[:attributes][:name]).to be_a(String)
   end
 
-  it "finds all items based on name search" do
+  xit "finds all items based on name search" do
     item_1 = create(:item, name: 'My Couch', unit_price: '500')
     item_2 = create(:item, name: 'BandAid fix ouch', unit_price: '2')
     item_3 = create(:item, name: 'Turnips', unit_price: '10')
