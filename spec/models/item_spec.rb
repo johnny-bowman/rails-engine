@@ -11,10 +11,11 @@ RSpec.describe Item do
 
   describe "class methods" do
     it "searches for items by name" do
-      create_list(:item, 3)
-      item = Item.all.first
+      item_1 = create(:item, name: 'My Couch', unit_price: '500')
+      item_2 = create(:item, name: 'BandAid fix ouch', unit_price: '2')
+      item_3 = create(:item, name: 'Turnips', unit_price: '10')
 
-      expect(Item.search_by_name(item.name)).to eq([item])
+      expect(Item.search_by_name('ouch')).to eq([item_1, item_2])
     end
 
     it "searches for items by min price" do
