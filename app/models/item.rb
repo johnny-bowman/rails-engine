@@ -28,4 +28,13 @@ class Item < ApplicationRecord
     end
     where(unit_price: (min_price.to_i)..(max_price.to_i))
   end
+
+  def self.desc_revenue(quantity)
+    select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .joins(invoice_items: [:invoice, :transactions])
+    .group(:id)
+    .where(transactions: {result: "success"}, invoices: {status: "shipped"})
+    .order(revenue: :desc)
+    .limit(quantity)
+  end
 end

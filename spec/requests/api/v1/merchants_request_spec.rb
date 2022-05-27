@@ -69,7 +69,7 @@ describe "Merchants API" do
     get "/api/v1/merchants/find?name=#{merchant_name.downcase}"
 
     merchant = JSON.parse(response.body, symbolize_names: true)
-    
+
     expect(response).to be_successful
   end
 
@@ -77,6 +77,7 @@ describe "Merchants API" do
     get "/api/v1/merchants/find?name=cheesepuffmcgooberstein"
 
     error_response = JSON.parse(response.body, symbolize_names: true)[:data]
+    
     expect(error_response[:error]).to eq("Merchant not found")
   end
 end
